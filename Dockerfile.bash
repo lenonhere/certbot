@@ -1,5 +1,6 @@
 FROM python:2-alpine
 
+#ENTRYPOINT [ "certbot" ]
 EXPOSE $PORT
 VOLUME /etc/letsencrypt /var/lib/letsencrypt
 WORKDIR /opt/certbot
