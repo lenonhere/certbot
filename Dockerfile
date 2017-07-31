@@ -1,6 +1,5 @@
 FROM python:2-alpine
 
-EXPOSE $PORT
 VOLUME /etc/letsencrypt /var/lib/letsencrypt
 WORKDIR /opt/certbot
 
