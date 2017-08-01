@@ -25,3 +25,18 @@ if [ -n "$RENEW" ];then
 else
   certbot certonly --standalone --preferred-challenges $PORT $SUBDOMIAN --agree-tos -m $EMAIL --eff-email
 fi
+
+
+for dir in /etc/letsencrypt/live/*
+ do
+   if [ -d $dir ]
+   then
+    CHAIN="${dir}/chain.pem"
+    CRT="${dir}/fullchain.pem"
+    KEY="${dir}/key.pem"
+    cp -s $CHAIN ${dir}.chain.pem
+    cp -s $CRT ${dir}.crt
+    cp -s $KEY ${dir}.key
+  fi
+done
+
