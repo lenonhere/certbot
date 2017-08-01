@@ -21,6 +21,7 @@ IFS=$oldIFS
 
 if [ -n "$RENEW" ];then
   certbot renew
+  certbot certonly --standalone --preferred-challenges $PORT $SUBDOMIAN --agree-tos -m $EMAIL --eff-email
 else
   certbot certonly --standalone --preferred-challenges $PORT $SUBDOMIAN --agree-tos -m $EMAIL --eff-email
 fi
