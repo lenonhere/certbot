@@ -1,3 +1,4 @@
+
 FROM python:2-alpine
 MAINTAINER DylanWu
 
@@ -25,4 +26,5 @@ RUN apk add --no-cache --virtual .build-deps \
     && apk del .build-deps
 
 COPY docker-entrypoint.sh /entrypoint.sh
+COPY cleanup.sh /cleanup.sh
 ENTRYPOINT ["/entrypoint.sh"]
