@@ -27,13 +27,13 @@ else
 fi
 
 
-for dir in /etc/letsencrypt/live/*
+for dir in /etc/letsencrypt/archive/*
  do
    if [ -d $dir ]
    then
-    CHAIN="${dir}/chain.pem"
-    CRT="${dir}/fullchain.pem"
-    KEY="${dir}/privkey.pem"
+    CHAIN="${dir}/chain1.pem"
+    CRT="${dir}/fullchain1.pem"
+    KEY="${dir}/privkey1.pem"
     cp -s $CHAIN ${dir}.chain.pem
     cp -s $CRT ${dir}.crt
     cp -s $KEY ${dir}.key
