@@ -33,7 +33,7 @@ for dir in /etc/letsencrypt/live/*
    then
     CHAIN="${dir}/chain.pem"
     CRT="${dir}/fullchain.pem"
-    KEY="${dir}/key.pem"
+    KEY="${dir}/privkey.pem"
     cp -s $CHAIN ${dir}.chain.pem
     cp -s $CRT ${dir}.crt
     cp -s $KEY ${dir}.key
