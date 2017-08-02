@@ -26,17 +26,18 @@ else
   certbot certonly --standalone --preferred-challenges $PORT $SUBDOMIAN --agree-tos -m $EMAIL --eff-email
 fi
 
+sleep 10
 
-for dir in /etc/letsencrypt/archive/*
+for dir in /etc/letsencrypt/live/*
  do
    if [ -d $dir ]
    then
-    CHAIN="${dir}/chain1.pem"
-    CRT="${dir}/fullchain1.pem"
-    KEY="${dir}/privkey1.pem"
-    cp -s $CHAIN ${dir}.chain.pem
-    cp -s $CRT ${dir}.crt
-    cp -s $KEY ${dir}.key
+    CHAIN="${dir}/chain.pem"
+    CRT="${dir}/fullchain.pem"
+    KEY="${dir}/privkey.pem"
+    cp $CHAIN /etc/letsencrypt/${dir##*/}.chain.pem
+    cp $CRT /etc/letsencrypt/${dir##*/}.crt
+    cp $KEY /etc/letsencrypt/${dir##*/}.key
   fi
 done
 
