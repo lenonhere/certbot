@@ -7,14 +7,15 @@ Simple-Certbot is a application to simplify the process of applying for a certif
 
 ```yaml
 ocserv:
-  image: certbot/certbot
+  image: hyperapp/certbot
   ports:
     - "80:80/tcp"
-    - "443:443/udp"
+    - "443:443/tcp"
   environment:
     - DOMAIN=easypi.info,blog.easypi.info
     - EMAIL=admin@easypi.info
-    - PORT=tls-sni/http
+    - PORT=http
+    #- PORT=tls-sni
 ```
 
 > - :warning: Please choose the port 80 or 443 in order to perform domain validation.
