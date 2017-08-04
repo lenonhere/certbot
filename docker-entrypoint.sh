@@ -13,9 +13,7 @@ do
   fi
 done
 
-echo $RENEW
-echo $DOMIAN
-echo $SUBDOMAIN
+echo 'Generating SSL for domains ' $DOMIAN
 
 IFS=$oldIFS
 
@@ -26,7 +24,6 @@ else
   certbot certonly --standalone --preferred-challenges $PORT $SUBDOMAIN --agree-tos -m $EMAIL --no-eff-email
 fi
 
-sleep 10
 
 for dir in /etc/letsencrypt/live/*
  do
