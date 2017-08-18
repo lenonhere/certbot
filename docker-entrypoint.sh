@@ -13,7 +13,7 @@ do
   fi
 done
 
-echo 'Generating SSL for domains ' $DOMIAN
+echo 'Generating SSL for domains ' $DOMAIN
 
 IFS=$oldIFS
 
