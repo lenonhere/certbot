@@ -1,27 +1,39 @@
 #!/bin/sh
 
+RENEWED=false
 oldIFS=$IFS
 IFS=,
+
+echo 'Generating SSL for domains ' $DOMAIN
 
 for i in $DOMAIN
 do
   FOLDER="/etc/letsencrypt/live/$i"
-  if [ ! -d "$FOLDER" ]; then
-    SUBDOMAIN="$SUBDOMAIN -d $i"
+
+  if [ -d "$FOLDER" ]; then
+    if [ "$RENEWED" = "false" ]; then
+      echo "Renew old certs ..."
+      certbot renew
+      RENEWED=true
+    else
+      echo "Skip domain $i"
+    fi
+
   else
-    RENEW=$i
+    if [ "$USE_SAN" = "true" ]; then
+      SAN_DOMAINS="$SAN_DOMAINS -d $i"
+    else
+      echo "Obtain cert for $i"
+      certbot certonly --standalone -n --preferred-challenges $PORT -d $i --agree-tos -m $EMAIL --no-eff-email
+    fi
   fi
 done
 
-echo 'Generating SSL for domains ' $DOMAIN
 
 IFS=$oldIFS
 
-if [ -n "$RENEW" ];then
-  certbot renew
-  certbot certonly --standalone --preferred-challenges $PORT -d $DOMAIN --agree-tos -m $EMAIL --no-eff-email
-else
-  certbot certonly --standalone --preferred-challenges $PORT -d $DOMAIN --agree-tos -m $EMAIL --no-eff-email
+if [ -n "$SAN_DOMAINS" ];then
+  certbot certonly --standalone -n --preferred-challenges $PORT -d $SAN_DOMAINS --agree-tos -m $EMAIL --no-eff-email
 fi
 
 
